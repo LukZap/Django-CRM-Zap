@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Użytkownicy{% endblock %}
+
+{% block content %}
+  <h1>Użytkownicy</h1>
+    <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Imie</th>
+        <th>Nazwisko</th>
+        <th>Telefon</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+      <tr {% if user.user.username == 'admin' %}class="success"{% endif%} onclick="window.document.location='{{ user.get_absolute_url }}'">
+        <td>{{ user.user.first_name }}</td>
+        <td>{{ user.user.last_name }}</td>
+        <td>{{ user.phone_number }}</td>
+        <td>{{ user.user.email }}</td>
+        <td>{{ user.date_birth }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <!--<div class=""><a href="{{ user.get_absolute_url }}">{{ user }}</a></div>-->
+{% endblock %}

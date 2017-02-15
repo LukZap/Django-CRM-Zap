@@ -1,0 +1,47 @@
+  <!--{% if request.user.is_authenticated %}-->
+    <!--<ul class="menu">-->
+      <!--<li {% if section == "companies" %}class="selected"{% endif %}>-->
+        <!--<a href="{% url "companies" %}">Firmy</a>-->
+      <!--</li>-->
+      <!--<li {% if section == "users" %}class="selected"{% endif %}>-->
+        <!--<a href="{% url "users" %}">Użytkownicy</a>-->
+      <!--</li>-->
+    <!--</ul>-->
+  <!--{% endif %}-->
+
+
+
+      <a href="{% url "logout" %}">Wyloguj</a>
+    {% else %}
+
+
+{% extends "base.html" %}
+
+{% block title %}Firmy{% endblock %}
+
+{% block content %}
+  <h1>Twoje firmy: </h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nazwa Firmy</th>
+        <th>Adres</th>
+        <th>Telefon</th>
+        <th>NIP</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for company in companies %}
+      <tr onclick="window.document.location='{{ company.get_absolute_url }}'">
+        <td>{{ company.name }}</td>
+        <td>{{ company.adress }}</td>
+        <td>{{ company.phone_number }}</td>
+        <td>{{ company.NIP }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <form action="{% url 'company_add' %}">
+    <input type="submit" value="Dodaj firmę" />
+  </form>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Dodanie firmy{% endblock %}
+
+{% block content %}
+  <h1>Dodaj firmę</h1>
+  <p>Wypełnij formularz aby dodać firmę.</p>
+  <form action="." method="post" enctype="multipart/form-data">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <p><input type="submit" value="Dodaj"></p>
+  </form>
+{% endblock %}

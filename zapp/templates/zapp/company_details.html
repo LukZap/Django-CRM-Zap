@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Firma{% endblock %}
+
+{% block content %}
+  {% if message %}
+    Popatrz, co żeś dodał.
+  {% endif %}
+  <h1>Firma: {{ company.name }}</h1>
+  <div class="container">
+    <div class="row">
+    {% if company.logo %}
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6" style="padding:0">
+        <img src="{{ company.logo.url }}" class="img-responsive" alt="Logo"  style="margin-bottom:20px">
+      </div>
+    {% endif %}
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+        <table class="table">
+          <tr>
+              <td>Adres:</td>
+              <td>{{ company.adress }}</td>
+          </tr>
+          <tr>
+              <td>Numer telefonu:</td>
+              <td>{{ company.phone_number }}</td>
+          </tr>
+          <tr>
+              <td>NIP:</td>
+              <td>{{ company.NIP }}</td>
+          </tr>
+          <tr>
+              <td>Klient od:</td>
+              <td>{{ company.joined }}</td>
+          </tr>
+          <tr>
+              <td>Opiekun:</td>
+              <td>{{ company.customer_assistant }}</td>
+          </tr>
+          <tr>
+              <td>Notatki:</td>
+              <td>
+              {% if company.adnotations %}
+                {{ company.adnotations }}
+              {% else %}
+                brak
+              {% endif %}
+              </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+ <form action="{% url 'company_edit' company.slug %}">
+    <input type="submit" value="Edytuj firmę" />
+ </form>
+{% endblock %}
+

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Edycja firmy{% endblock %}
+
+{% block content %}
+  <h1>Edytuj</h1>
+  <form action="." method="post" enctype="multipart/form-data">
+    {{ comp_form.as_p }}
+    {% csrf_token %}
+    <p><input type="submit" value="Zapisz"></p>
+  </form>
+{% endblock %}

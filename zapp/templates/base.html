@@ -1,0 +1,58 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  <!--<link href="{% static "css/bootstrap.css" %}" rel="stylesheet">-->
+  <link href="{% static "css/base.css" %}" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    h1 {
+      margin: 0 0 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="header">
+  <a href="{% url "start" %}"><span class="logo">CRM <span class="glyphicon glyphicon-flash"></span> ZAP</span></a>
+  {% if request.user.is_authenticated %}
+    <ul class="menu">
+      <li {% if section == "companies" %}class="selected"{% endif %}>
+        <a href="{% url "companies" %}"><span class="glyphicon glyphicon-briefcase"></span> Firmy</a>
+      </li>
+      <li {% if section == "users" %}class="selected"{% endif %}>
+        <a href="{% url "users" %}"><span class="glyphicon glyphicon-user"></span> Użytkownicy</a>
+      </li>
+    </ul>
+  {% endif %}
+
+  <span class="user">
+    {% if request.user.is_authenticated %}
+    Witaj, {{ request.user.first_name }}!
+      <a href="{% url "logout" %}">Wyloguj</a>
+    {% else %}
+      <a href="{% url "login" %}">Zaloguj</a>
+    {% endif %}
+  </span>
+  </div>
+
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="{{ message.tags }}">
+          {{ message|safe }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+</body>
+</html>
+

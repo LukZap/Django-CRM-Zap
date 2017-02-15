@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Strona główna{% endblock %}
+
+{% block content %}
+  <h1>Witaj w CRM ZAP</h1>
+  <div class="container">
+
+    {% if customer_assistant.photo and customer_assistant.date_birth and customer_assistant.phone_number %}
+    <p>Możesz zobaczyć/edytować swój profil <a href="{% url 'user_details' request.user.username %}">tutaj</a>.</p>
+    {% else %}
+    <div class="well">
+      <p>Masz nieuzupełniony profil - możesz uzupełnić go <a href="{% url 'user_edit' request.user.username %}">tutaj</a></p>
+    </div>
+    {% endif %}
+    <h3>CRM ZAP umożliwia:</h3>
+    <ul>
+      <li>Podgląd firm dodanych przez danego użytkownika i możliwość ich edycji.</li>
+      <li>Podgląd własnego profilu i możliwość edycji go.</li>
+      <li>Podgląd pozostałych użytkowników z wyłączeniem danego użytkownika bez możliwości ich edycji.</li>
+      <li>Podczas logowania - możliwość utworzenia nowego użytkownika.</li>
+      <li>Po zalogowaniu na konto admina możliwa jest edycja wszystkich firm oraz użytkowników.</li>
+    </ul>
+    </p>
+  </div>
+{% endblock %}

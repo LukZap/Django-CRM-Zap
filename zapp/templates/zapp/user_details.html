@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Użytkownik{% endblock %}
+
+{% block content %}
+  {% if message %}
+    <div>Dodawanie zakończone powodzeniem.</div>
+  {% endif %}
+<h1>Użytkownik: <strong>{{ user.user.username }}</strong> ({{ user }})</h1>
+  <div class="container" id="details">
+    <div class="row">
+      {% if user.photo %}
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6" style="padding:0">
+        <img src="{{ user.photo.url }}" class="img-responsive" alt="Logo"  style="margin-bottom:20px">
+      </div>
+      {% endif %}
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+        <table class="table">
+          <tr>
+              <td>Imię:</td>
+              <td>{{ user.user.first_name }}</td>
+          </tr>
+          <tr>
+              <td>Nazwisko:</td>
+              <td>{{ user.user.last_name }}</td>
+          </tr>
+          <tr>
+              <td>Numer telefonu:</td>
+              <td>{{ user.phone_number }}</td>
+          </tr>
+          <tr>
+              <td>Email:</td>
+              <td>{{ user.user.email }}</td>
+          </tr>
+          <tr>
+              <td>Data urodzenia:</td>
+              <td>{{ user.date_birth }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% if request.user.username == 'admin' or request.user.username == user.user.username %}
+  <form action="{% url 'user_edit' user.user.username %}">
+    <input type="submit" value="Edytuj użytkownika" />
+  </form>
+  {% endif %}
+
+{% endblock %}
